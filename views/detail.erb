@@ -1,0 +1,8 @@
+<h2><%= @result["Title"] %></h2>
+<h3><%= @result["Year"] %></h3>
+<img src=<%= @result["Poster"] %> title="Movie Poster for <%= @result["Title"] %>" alt="Movie Poster for <%= @result["Title"] %>"/>
+<div>
+  <%= @result["Plot"] %>
+</div>
+
+<p> Actors: <%= @actors.join(", ") %>
