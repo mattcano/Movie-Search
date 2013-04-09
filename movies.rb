@@ -21,13 +21,21 @@ class Movies < Sinatra::Base
   get "/search" do
     @query = params[:q]
     @button = params[:button]
-    @page_title += ": Search Results for #{@query}"
-    file = open("http://www.omdbapi.com/?s=#{URI.escape(@query)}")
-    @results = JSON.load(file.read)["Search"] || []
-    if @results.size == 1
-      redirect "/movies"
+    if @button == "lucky"
+      file = open("http://www.omdbapi.com/?t=#{URI.escape(@query)}&tomatoes=true")
+      @result = JSON.load(file.read)  
+      @page_title += ": #{@result["Title"]}"
+      set_actors_and_directors(@result)
+      erb :detail
     else
-      erb :results
+      @page_title += ": Search Results for #{@query}"
+      file = open("http://www.omdbapi.com/?s=#{URI.escape(@query)}")
+      @results = JSON.load(file.read)["Search"] || []
+      if @results.size == 1
+        redirect "/movies"
+      else
+        erb :results
+      end
     end
   end
 
