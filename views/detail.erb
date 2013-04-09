@@ -1,6 +1,10 @@
 <h2><%= @result["Title"] %></h2>
 <h3><%= @result["Year"] %></h3>
-<img src=<%= @result["Poster"] %> title="Movie Poster for <%= @result["Title"] %>" alt="Movie Poster for <%= @result["Title"] %>"/>
+<% if @result["Poster"] == "N/A" %>
+  <img src="/no_poster.jpg" title="No Movie Poster Found" alt="No Movie Poster Found"/>
+<% else %>
+  <img src=<%= @result["Poster"] %> title="Movie Poster for <%= @result["Title"] %>" alt="Movie Poster for <%= @result["Title"] %>"/>
+<% end %>
 <div>
   <%= @result["Plot"] %>
 </div>
